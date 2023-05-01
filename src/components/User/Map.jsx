@@ -42,7 +42,7 @@ class Map extends Component {
 							draggable: true,
 						})
 							.setLngLat([longitude, latitude])
-							.setPopup(new mapboxgl.Popup().setHTML('<h1>Hello World!</h1>'))
+							.setPopup(new mapboxgl.Popup().setHTML(`<h1>${ searchQuery}</h1>`))
 							.addTo(map);
 					}
 				})
