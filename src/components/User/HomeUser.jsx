@@ -28,7 +28,7 @@ export class HomeUser extends Component {
 	 */
 
 	getAllRides() {
-		const uri = `http://localhost:4000/ride/rides`;
+		const uri = `https://poolnride-api.onrender.com/ride/rides`;
 
 		// Get user id and send it in with the post request.
 

@@ -68,7 +68,11 @@ export class Signup extends Component {
 			// alert(
 			// 	'Enter in a password! Anything you like, it just has to be longer than 6 characters.'
 			// );
-			Swal.fire('', 'Enter in a password! Anything you like, it just has to be longer than 6 characters.', 'question');
+			Swal.fire(
+				'',
+				'Enter in a password! Anything you like, it just has to be longer than 6 characters.',
+				'question'
+			);
 		} else if (this.state.cpassword !== this.state.password) {
 			// alert('Please re-enter the same password');
 			Swal.fire('', 'Please re-enter the same password', 'question');
@@ -76,7 +80,7 @@ export class Signup extends Component {
 			console.log('post request for new user');
 
 			// Make the post request
-			const uri = `http://localhost:4000/user/signup`;
+			const uri = `https://poolnride-api.onrender.com/user/signup`;
 
 			const formdata = JSON.stringify(this.state);
 
@@ -100,8 +104,8 @@ export class Signup extends Component {
 							icon: 'success',
 							title: 'Signup Successful! Please Signin',
 							showConfirmButton: false,
-							timer: 1500
-						  })
+							timer: 1500,
+						});
 						// window.location.reload();
 					}
 				})

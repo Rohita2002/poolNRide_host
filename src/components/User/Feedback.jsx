@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Sidebar from '../Sidebar';
-import './Feedback.css'
+import './Feedback.css';
 const Swal = require('sweetalert2');
 
 class Feedback extends Component {
@@ -36,7 +36,7 @@ class Feedback extends Component {
 
 		if (userID) {
 			console.log('inside if');
-			const uri = `http://localhost:4000/user/${userID}`;
+			const uri = `https://poolnride-api.onrender.com/user/${userID}`;
 			const self = this;
 
 			fetch(uri, {
@@ -79,7 +79,7 @@ class Feedback extends Component {
 
 	getDriverName() {
 		console.log('getting driver name', this.state.driverID);
-		var uri = `http://localhost:4000/user/${this.state.driverID}`;
+		var uri = `https://poolnride-api.onrender.com/user/${this.state.driverID}`;
 		const self = this;
 
 		fetch(uri, {
@@ -107,7 +107,7 @@ class Feedback extends Component {
 
 		console.log(this.state);
 
-		const uri = `http://localhost:4000/user/addFeedback`;
+		const uri = `https://poolnride-api.onrender.com/user/addFeedback`;
 
 		const body = JSON.stringify(this.state);
 
@@ -175,12 +175,12 @@ class Feedback extends Component {
 				<div className="AppGlassNoDiv">
 					<Sidebar />
 					<div className="FeedbackForm-container">
-						<h1 className='NewFormHeading'>Feedback</h1>
+						<h1 className="NewFormHeading">Feedback</h1>
 						<form className="FeedbackForm" onSubmit={this.handleSubmit}>
-							<table className='table'>
+							<table className="table">
 								<tbody>
 									<tr>
-										<td className='NewFormTd'>
+										<td className="NewFormTd">
 											<label className="FeedbackFormLabel">User name</label>
 											<input
 												className="FeedbackFormInput"
@@ -191,9 +191,9 @@ class Feedback extends Component {
 											/>
 										</td>
 									</tr>
-								
+
 									<tr>
-										<td className='NewFormTd'>	
+										<td className="NewFormTd">
 											<label className="FeedbackFormLabel">Email Address</label>
 											<input
 												className="FeedbackFormInput"
@@ -204,9 +204,9 @@ class Feedback extends Component {
 											/>
 										</td>
 									</tr>
-								
+
 									<tr>
-										<td className='NewFormTd'>
+										<td className="NewFormTd">
 											<label className="FeedbackFormLabel">To driver</label>
 											<input
 												className="FeedbackFormInput"
@@ -217,9 +217,9 @@ class Feedback extends Component {
 											/>
 										</td>
 									</tr>
-								
+
 									<tr>
-										<td className='NewFormTd'>
+										<td className="NewFormTd">
 											<label className="FeedbackFormLabel">Message</label>
 											<input
 												className="FeedbackFormInput"
@@ -231,11 +231,14 @@ class Feedback extends Component {
 										</td>
 									</tr>
 									<tr>
-										<td className='NewFormTd'>
+										<td className="NewFormTd">
 											<label className="FeedbackFormLabel">Rating</label>
-											<div className='ratingStars'>
+											<div className="ratingStars">
 												{[1, 2, 3, 4, 5].map((star) => (
-													<span key={star} onClick={() => this.handleStarClick(star)}>
+													<span
+														key={star}
+														onClick={() => this.handleStarClick(star)}
+													>
 														{star <= this.state.stars ? '★' : '☆'}
 													</span>
 												))}
@@ -244,11 +247,8 @@ class Feedback extends Component {
 									</tr>
 								</tbody>
 							</table>
-							
-							<button
-								className='btn btn-primary submitButton'
-								type="submit"
-							>
+
+							<button className="btn btn-primary submitButton" type="submit">
 								Submit
 							</button>
 						</form>

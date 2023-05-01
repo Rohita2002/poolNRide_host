@@ -152,7 +152,7 @@ class Rideentry extends Component {
 
 			console.log('this state in join', this.state);
 
-			// const uri = `http://localhost:4000/ride/joinPool`;
+			// const uri = `https://poolnride-api.onrender.com/ride/joinPool`;
 
 			// // const self = this;
 
@@ -229,7 +229,7 @@ class Rideentry extends Component {
 			console.log('entered else');
 			console.log('ride to be joined:', this.state);
 
-			const uri = `http://localhost:4000/ride/joinPool`;
+			const uri = `https://poolnride-api.onrender.com/ride/joinPool`;
 
 			const body = JSON.stringify(this.state);
 
@@ -284,7 +284,7 @@ class Rideentry extends Component {
 			})
 			.then((result) => {
 				if (result.isConfirmed) {
-					const uri = `http://localhost:4000/ride/${this.state.poolID}`;
+					const uri = `https://poolnride-api.onrender.com/ride/${this.state.poolID}`;
 
 					// const self = this;
 
@@ -326,7 +326,7 @@ class Rideentry extends Component {
 
 		console.log('ride to be completed:', this.state.poolDetails.rideID);
 
-		const uri = `http://localhost:4000/ride/${this.state.poolDetails.rideID}`;
+		const uri = `https://poolnride-api.onrender.com/ride/${this.state.poolDetails.rideID}`;
 
 		fetch(uri, {
 			method: 'PUT',
@@ -392,7 +392,7 @@ class Rideentry extends Component {
 	 * From the ride object, extract the driver's ID to look them up in the DB and get relevant infos.
 	 */
 	getUser(driverID) {
-		var uri = `http://localhost:4000/user/${driverID}`;
+		var uri = `https://poolnride-api.onrender.com/user/${driverID}`;
 
 		const self = this;
 
@@ -441,7 +441,7 @@ class Rideentry extends Component {
 	}
 
 	getRidesAsRider() {
-		const uri = `http://localhost:4000/ride/rides`;
+		const uri = `https://poolnride-api.onrender.com/ride/rides`;
 
 		// Get user id and send it in with the post request.
 

@@ -52,7 +52,7 @@ class BasicTable extends Component {
 
 	getPopCat() {
 		console.log('hi from table.jsx');
-		fetch('http://localhost:4000/ride/admin/popcategory')
+		fetch('https://poolnride-api.onrender.com/ride/admin/popcategory')
 			.then((response) => response.json())
 			.then((data) => {
 				// const usersInLast7Days = stats['usersInLast7Days'];

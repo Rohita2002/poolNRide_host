@@ -4,7 +4,7 @@ import Chart from 'react-apexcharts';
 const CustomerReview = () => {
 	const [valuesArray, setValuesArray] = useState([]);
 	const [keysArray, setKeysArray] = useState([]);
-	const uri = `http://localhost:4000/user/admin/feedbackstats`;
+	const uri = `https://poolnride-api.onrender.com/user/admin/feedbackstats`;
 
 	useEffect(() => {
 		fetch(uri, {

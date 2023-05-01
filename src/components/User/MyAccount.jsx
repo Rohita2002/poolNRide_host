@@ -98,7 +98,7 @@ class MyAccount extends Component {
 			.then((result) => {
 				if (result.isConfirmed) {
 					const userID = JSON.parse(localStorage.getItem('userID'));
-					fetch(`http://localhost:4000/vehicle/${userID}`, {
+					fetch(`https://poolnride-api.onrender.com/vehicle/${userID}`, {
 						method: 'DELETE',
 					})
 						.then((response) => {
@@ -107,9 +107,12 @@ class MyAccount extends Component {
 							}
 							console.log('Vehicle deleted successfully');
 
-							return fetch(`http://localhost:4000/ride/deletePool/${userID}`, {
-								method: 'DELETE',
-							});
+							return fetch(
+								`https://poolnride-api.onrender.com/ride/deletePool/${userID}`,
+								{
+									method: 'DELETE',
+								}
+							);
 						})
 						.then((response) => {
 							if (response.status !== 200) {
@@ -117,13 +120,16 @@ class MyAccount extends Component {
 							}
 							console.log('Pools deleted successfully');
 
-							return fetch(`http://localhost:4000/user/notVerify/${userID}`, {
-								method: 'PUT',
-								headers: {
-									'Content-Type': 'application/json',
-								},
-								body: JSON.stringify({ verified: false }),
-							});
+							return fetch(
+								`https://poolnride-api.onrender.com/user/notVerify/${userID}`,
+								{
+									method: 'PUT',
+									headers: {
+										'Content-Type': 'application/json',
+									},
+									body: JSON.stringify({ verified: false }),
+								}
+							);
 						})
 						.then((response) => {
 							if (response.status !== 200) {
@@ -152,7 +158,7 @@ class MyAccount extends Component {
 
 	showImage() {
 		const userID = JSON.parse(localStorage.getItem('userID'));
-		fetch(`http://localhost:4000/user/image/${userID}.png`)
+		fetch(`https://poolnride-api.onrender.com/user/image/${userID}.png`)
 			.then((response) => {
 				if (response.status === 200) {
 					return response.blob();
@@ -229,7 +235,7 @@ class MyAccount extends Component {
 		const userID = JSON.parse(localStorage.getItem('userID'));
 
 		if (userID) {
-			const uri = `http://localhost:4000/user/${userID}`;
+			const uri = `https://poolnride-api.onrender.com/user/${userID}`;
 
 			const self = this;
 
@@ -275,7 +281,7 @@ class MyAccount extends Component {
 		console.log('inside getting vehicles');
 		const userID = JSON.parse(localStorage.getItem('userID'));
 
-		const uri = `http://localhost:4000/vehicle/vehicleDetails/${userID}`;
+		const uri = `https://poolnride-api.onrender.com/vehicle/vehicleDetails/${userID}`;
 
 		const self = this;
 
@@ -306,7 +312,7 @@ class MyAccount extends Component {
 	getRidesByUserID() {
 		console.log('get rides called....');
 		// Populate the main page with the list of rides in a specific direction.
-		var uri = `http://localhost:4000/ride/bydriver`;
+		var uri = `https://poolnride-api.onrender.com/ride/bydriver`;
 		uri += `?driverID=${this.state.user._id}`;
 
 		console.log(uri);
@@ -366,7 +372,7 @@ class MyAccount extends Component {
 	}
 
 	getRidesAsRider() {
-		const uri = `http://localhost:4000/ride/rides`;
+		const uri = `https://poolnride-api.onrender.com/ride/rides`;
 
 		// Get user id and send it in with the post request.
 
@@ -460,8 +466,8 @@ class MyAccount extends Component {
 						<Sidebar />
 
 						{!this.state.viewPools && (
-							<div className='AccountDetails'>
-								<h1 className='AccountDetailsHeading'>My Account</h1>
+							<div className="AccountDetails">
+								<h1 className="AccountDetailsHeading">My Account</h1>
 								{this.state.user?.verified && (
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -477,25 +483,26 @@ class MyAccount extends Component {
 									</svg>
 								)}
 								{this.state.user?.feedback.length > 0 ? (
-									<p className='AccountDetailsParaSpan'>
+									<p className="AccountDetailsParaSpan">
 										{this.displayStars(
 											this.calculateAverageRating(this.state.user.feedback),
 											5
 										)}
 									</p>
 								) : (
-									<p className='AccountDetailsParaSpan'>*No ratings yet</p>
+									<p className="AccountDetailsParaSpan">*No ratings yet</p>
 								)}
 
-								<div className='AcountDetailsCards'>
-									<div className='RideDetails'>
+								<div className="AcountDetailsCards">
+									<div className="RideDetails">
 										<h5>Rides</h5>
 										{/* user feedback	 */}
-										<div className='AccountDetailsPara'>
-											<p className='AccountDetailsParaSpan'>My Feedback: </p>
+										<div className="AccountDetailsPara">
+											<p className="AccountDetailsParaSpan">My Feedback: </p>
 											{this.state.user.feedback && (
-												<div className='AccountDetailsParaSpan'>
-													<Button className='accountButton'
+												<div className="AccountDetailsParaSpan">
+													<Button
+														className="accountButton"
 														variant="primary rounded-pill"
 														onClick={this.handleShowModalPools}
 													>
@@ -513,12 +520,16 @@ class MyAccount extends Component {
 																this.state.user.feedback.map((item, index) => (
 																	<div key={index}>
 																		<p>Message: {item.message}</p>
-																		<p>Rating: {this.displayStars(item.rating, 5)}</p>
+																		<p>
+																			Rating:{' '}
+																			{this.displayStars(item.rating, 5)}
+																		</p>
 																	</div>
 																))}
 														</Modal.Body>
 														<Modal.Footer>
-															<Button className='accountButton'
+															<Button
+																className="accountButton"
 																variant="secondary"
 																onClick={this.handleHideModalPools}
 															>
@@ -534,13 +545,16 @@ class MyAccount extends Component {
 												</div>
 											)} */}
 										</div>
-										
+
 										{/* vehicle details */}
-										<div className='AccountDetailsPara'>
-											<p className='AccountDetailsParaSpan'>My Vehicle Details: </p>
+										<div className="AccountDetailsPara">
+											<p className="AccountDetailsParaSpan">
+												My Vehicle Details:{' '}
+											</p>
 											{this.state.vehicleDetails && (
-												<div className='AccountDetailsParaSpan'>
-													<Button className='accountButton'
+												<div className="AccountDetailsParaSpan">
+													<Button
+														className="accountButton"
 														variant="primary rounded-pill"
 														onClick={this.handleShowModalVeh}
 													>
@@ -564,10 +578,14 @@ class MyAccount extends Component {
 															</p>
 															<p>
 																Vehicle Specification:{' '}
-																{this.state.vehicleDetails?.vehicleSpecification}
+																{
+																	this.state.vehicleDetails
+																		?.vehicleSpecification
+																}
 															</p>
 															<p>
-																License Number: {this.state.vehicleDetails?.licenseID}
+																License Number:{' '}
+																{this.state.vehicleDetails?.licenseID}
 															</p>
 															<img
 																src={this.state.imageUrl}
@@ -577,7 +595,8 @@ class MyAccount extends Component {
 															></img>
 														</Modal.Body>
 														<Modal.Footer>
-															<Button className='accountButton'
+															<Button
+																className="accountButton"
 																variant="danger rounded-pill"
 																onClick={this.handleDeleteVehicle}
 															>
@@ -589,19 +608,19 @@ class MyAccount extends Component {
 											)}
 
 											{!this.state.vehicleDetails && (
-												<div className='AccountDetailsParaSpan'>
+												<div className="AccountDetailsParaSpan">
 													*No vehicle registered
 												</div>
 											)}
 										</div>
 
 										{/* pool */}
-										<div className='AccountDetailsPara'>
-											<p className='AccountDetailsParaSpan'>My Pools:</p>
-											<div className='AccountDetailsParaSpan'>
-												<Button 
-													className='accountButton' 
-													variant="primary rounded-pill" 
+										<div className="AccountDetailsPara">
+											<p className="AccountDetailsParaSpan">My Pools:</p>
+											<div className="AccountDetailsParaSpan">
+												<Button
+													className="accountButton"
+													variant="primary rounded-pill"
 													onClick={this.handleViewPools}
 												>
 													View
@@ -611,35 +630,52 @@ class MyAccount extends Component {
 									</div>
 
 									{/* personal details */}
-									<div className='PersonalDetails'>
-										<h5 className='AccountDetailsPara'>Personal Details</h5>
-										<div className='AccountDetailsPara'>
-											<span className='AccountDetailsParaSpan'>First Name:</span> 
-											<span className='AccountDetailsParaSpan'>{this.state.user.firstname}</span>
+									<div className="PersonalDetails">
+										<h5 className="AccountDetailsPara">Personal Details</h5>
+										<div className="AccountDetailsPara">
+											<span className="AccountDetailsParaSpan">
+												First Name:
+											</span>
+											<span className="AccountDetailsParaSpan">
+												{this.state.user.firstname}
+											</span>
 										</div>
-										<div className='AccountDetailsPara'>
-											<span className='AccountDetailsParaSpan'>Last Name:</span> 
-											<span className='AccountDetailsParaSpan'>{this.state.user.lastname}</span>
+										<div className="AccountDetailsPara">
+											<span className="AccountDetailsParaSpan">Last Name:</span>
+											<span className="AccountDetailsParaSpan">
+												{this.state.user.lastname}
+											</span>
 										</div>
-										<div className='AccountDetailsPara'>
-											<span className='AccountDetailsParaSpan'>Username:</span> 
-											<span className='AccountDetailsParaSpan'>{this.state.user.username}</span>
+										<div className="AccountDetailsPara">
+											<span className="AccountDetailsParaSpan">Username:</span>
+											<span className="AccountDetailsParaSpan">
+												{this.state.user.username}
+											</span>
 										</div>
-										<div className='AccountDetailsPara'>
-											<span className='AccountDetailsParaSpan'>Email ID: </span> 
-											<span className='AccountDetailsParaSpan'>{this.state.user.emailID}</span>
+										<div className="AccountDetailsPara">
+											<span className="AccountDetailsParaSpan">Email ID: </span>
+											<span className="AccountDetailsParaSpan">
+												{this.state.user.emailID}
+											</span>
 										</div>
-										<div className='AccountDetailsPara'>
-											<span className='AccountDetailsParaSpan'>Mobile Number: </span> 
-											<span className='AccountDetailsParaSpan'>{this.state.user.mobileNumber}</span>
+										<div className="AccountDetailsPara">
+											<span className="AccountDetailsParaSpan">
+												Mobile Number:{' '}
+											</span>
+											<span className="AccountDetailsParaSpan">
+												{this.state.user.mobileNumber}
+											</span>
 										</div>
 									</div>
 								</div>
 							</div>
 						)}
 						{this.state.viewPools && (
-							<div className='ViewPools'>
-								<label style={switchStyle} className="switch AccountDetailsHeading">
+							<div className="ViewPools">
+								<label
+									style={switchStyle}
+									className="switch AccountDetailsHeading"
+								>
 									<input
 										type="checkbox"
 										checked={isToggled}
@@ -663,7 +699,9 @@ class MyAccount extends Component {
 								</label>
 								{!isToggled ? (
 									<div className="UserAccountContainer">
-										<h1 className='AccountDetailsHeading'>Hi, {this.state.user.firstname} </h1>
+										<h1 className="AccountDetailsHeading">
+											Hi, {this.state.user.firstname}{' '}
+										</h1>
 										{this.state.user?.verified && (
 											<svg
 												xmlns="http://www.w3.org/2000/svg"
@@ -680,14 +718,19 @@ class MyAccount extends Component {
 										)}
 
 										{!this.state.viewHistoryDrives && (
-											<p className='AccountDetailsParaSpan' id="userRides">I'm driving!</p>
+											<p className="AccountDetailsParaSpan" id="userRides">
+												I'm driving!
+											</p>
 										)}
 										{this.state.viewHistoryDrives && (
-											<p className='AccountDetailsParaSpan' id="userRides">My Drive History!</p>
+											<p className="AccountDetailsParaSpan" id="userRides">
+												My Drive History!
+											</p>
 										)}
-										<button 
-											className='btn btn-primary rounded-pill ViewPoolsButton'
-											onClick={this.handleClickDriveHistory}>
+										<button
+											className="btn btn-primary rounded-pill ViewPoolsButton"
+											onClick={this.handleClickDriveHistory}
+										>
 											View Drive History
 										</button>
 										{!this.state.viewHistoryDrives && (
@@ -711,16 +754,23 @@ class MyAccount extends Component {
 									</div>
 								) : (
 									<div className="UserAccountContainer">
-										<h1 className='AccountDetailsHeading' >Hi, {this.state.user.firstname} </h1>
+										<h1 className="AccountDetailsHeading">
+											Hi, {this.state.user.firstname}{' '}
+										</h1>
 										{!this.state.viewHistoryRides && (
-											<p className='AccountDetailsParaSpan' id="userRides">I'm riding!</p>
+											<p className="AccountDetailsParaSpan" id="userRides">
+												I'm riding!
+											</p>
 										)}
 										{this.state.viewHistoryRides && (
-											<p className='AccountDetailsParaSpan' id="userRides">My Ride History!</p>
+											<p className="AccountDetailsParaSpan" id="userRides">
+												My Ride History!
+											</p>
 										)}
-										<button 
-											className='btn btn-primary rounded-pill ViewPoolsButton'
-											onClick={this.handleClickRideHistory}>
+										<button
+											className="btn btn-primary rounded-pill ViewPoolsButton"
+											onClick={this.handleClickRideHistory}
+										>
 											View Ride History
 										</button>
 										{!this.state.viewHistoryRides && (

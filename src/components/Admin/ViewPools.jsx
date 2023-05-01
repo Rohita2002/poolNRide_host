@@ -24,7 +24,7 @@ export default class ViewPools extends Component {
 	}
 
 	getAllUsers() {
-		const uri = `http://localhost:4000/user/allusers`;
+		const uri = `https://poolnride-api.onrender.com/user/allusers`;
 
 		// Get user id and send it in with the post request.
 
@@ -52,7 +52,7 @@ export default class ViewPools extends Component {
 	}
 
 	getEveryRide() {
-		const uri = `http://localhost:4000/ride/rides`;
+		const uri = `https://poolnride-api.onrender.com/ride/rides`;
 
 		// Get user id and send it in with the post request.
 
@@ -83,7 +83,7 @@ export default class ViewPools extends Component {
 	handleDelete(id) {
 		console.log('ride to be deleted:', id);
 
-		const uri = `http://localhost:4000/ride/${id}`;
+		const uri = `https://poolnride-api.onrender.com/ride/${id}`;
 
 		const self = this;
 
@@ -109,7 +109,7 @@ export default class ViewPools extends Component {
 				console.log('Request failed', err);
 			});
 	}
-	
+
 	render() {
 		console.log('users', this.state.Users);
 		console.log('pools', this.state.Rides);
@@ -125,20 +125,36 @@ export default class ViewPools extends Component {
 			<div className="App">
 				<div className="AppGlassNoDiv">
 					<Sidebar />
-					<div className='viewpools'>
+					<div className="viewpools">
 						<h1>Pools</h1>
-						<table className='table'>
-							<thead className='thead-light'>
+						<table className="table">
+							<thead className="thead-light">
 								<tr>
-									<th className='temp' scope='col'>Serial No.</th>
-									<th className='temp' scope='col'>Driver</th>
-									<th className='temp' scope='col'>Departure</th>
-									<th className='temp' scope='col'>Destination</th>
-									<th className='temp' scope='col'>Category</th>
-									<th className='temp' scope='col'>Price</th>
-									<th className='temp' scope='col'>Status</th>
-									<th className='temp' scope='col'>Pool Members and Waypoints</th>
-									
+									<th className="temp" scope="col">
+										Serial No.
+									</th>
+									<th className="temp" scope="col">
+										Driver
+									</th>
+									<th className="temp" scope="col">
+										Departure
+									</th>
+									<th className="temp" scope="col">
+										Destination
+									</th>
+									<th className="temp" scope="col">
+										Category
+									</th>
+									<th className="temp" scope="col">
+										Price
+									</th>
+									<th className="temp" scope="col">
+										Status
+									</th>
+									<th className="temp" scope="col">
+										Pool Members and Waypoints
+									</th>
+
 									<th>Delete</th>
 								</tr>
 							</thead>
@@ -151,7 +167,7 @@ export default class ViewPools extends Component {
 										<td>{ride.destination}</td>
 										<td>{ride.category}</td>
 										<td>Rs.{ride.price}</td>
-										<td>{ride.completed ? "completed" : "pooling"}</td>
+										<td>{ride.completed ? 'completed' : 'pooling'}</td>
 
 										<td>
 											{ride.poolMembers.map((member, idx) => {
@@ -168,12 +184,12 @@ export default class ViewPools extends Component {
 												);
 											})}
 										</td>
-										
+
 										<td>
 											<button
-												className='btn btn-danger' 
+												className="btn btn-danger"
 												onClick={() => this.handleDelete(ride._id)}
-												>
+											>
 												Delete
 											</button>
 										</td>

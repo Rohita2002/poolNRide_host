@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Sidebar from '../Sidebar';
-import './Payment.css'
+import './Payment.css';
 const Swal = require('sweetalert2');
 
 export default class Payment extends Component {
@@ -21,7 +21,7 @@ export default class Payment extends Component {
 		const arr = [];
 
 		this.state.poolDetails.poolMembers.forEach((id) => {
-			const uri = `http://localhost:4000/user/${id.memberID}`;
+			const uri = `https://poolnride-api.onrender.com/user/${id.memberID}`;
 
 			fetch(uri, {
 				method: 'GET',
@@ -89,15 +89,15 @@ export default class Payment extends Component {
 			<div className="App">
 				<div className="AppGlassNoDiv">
 					<Sidebar />
-					<div className='paymentTable'>
+					<div className="paymentTable">
 						{this.state.poolers.length && (
-							<table className='table'>
-								<thead className='thead-light'>
+							<table className="table">
+								<thead className="thead-light">
 									<tr>
-										<th scope='col'>Serial No.</th>
-										<th scope='col'>First Name</th>
-										<th scope='col'>Waypoint</th>
-										<th scope='col'>Price</th>
+										<th scope="col">Serial No.</th>
+										<th scope="col">First Name</th>
+										<th scope="col">Waypoint</th>
+										<th scope="col">Price</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -118,10 +118,7 @@ export default class Payment extends Component {
 							</table>
 						)}
 						{!this.state.poolers.length && <h3>No riders for this ride.</h3>}
-						<button 
-							className='btn btn-secondary'
-							onClick={this.handleArchive}
-						>
+						<button className="btn btn-secondary" onClick={this.handleArchive}>
 							Archive
 						</button>
 					</div>

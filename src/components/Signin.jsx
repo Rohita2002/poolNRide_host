@@ -49,21 +49,13 @@ export class Signin extends Component {
 		// First make sure appropriate data is passed in.
 		if (!this.state.emailID) {
 			// alert('Must enter a valid email address.');
-			Swal.fire(
-				'',
-				'Must enter a valid email address.',
-				'question'
-			  )
+			Swal.fire('', 'Must enter a valid email address.', 'question');
 		} else if (!this.state.password) {
 			// alert('Enter in your password!');
-			Swal.fire(
-				'',
-				'Must enter a password.',
-				'question'
-			  )
+			Swal.fire('', 'Must enter a password.', 'question');
 		} else {
 			// Make the post request
-			const uri = `http://localhost:4000/user/login`;
+			const uri = `https://poolnride-api.onrender.com/user/login`;
 
 			const formdata = JSON.stringify(this.state);
 			// remove this line when cleaning out code.
@@ -87,8 +79,8 @@ export class Signin extends Component {
 							icon: 'error',
 							title: 'Oops...',
 							text: 'we couldnt find someone with that email and password.',
-							footer: ''
-						  })
+							footer: '',
+						});
 					} else {
 						return response.json();
 					}
@@ -131,22 +123,22 @@ export class Signin extends Component {
 			return <Navigate to="/admin" />;
 		}
 		return (
-			<div className='main'>
+			<div className="main">
 				<NavBar />
 				<div className="LoginContainer">
 					<h1 className="formInput">Welcome back!</h1>
 
 					<form className="LoginForm" onSubmit={this.handleSubmit}>
-						<div className='form-group row'>
+						<div className="form-group row">
 							<div>
 								<label className="LoginFormInput">Email Address</label>
 								<input
 									type="text"
 									name="emailID"
-									className='form-control'
+									className="form-control"
 									value={this.state.emailID}
 									onChange={this.handleChange}
-									/>
+								/>
 							</div>
 
 							<div>
@@ -154,12 +146,14 @@ export class Signin extends Component {
 								<input
 									type="password"
 									name="password"
-									className='form-control'
+									className="form-control"
 									value={this.state.password}
 									onChange={this.handleChange}
-									/>
+								/>
 							</div>
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="submit" class="btn btn-primary">
+								Submit
+							</button>
 							{/* <input className="LoginFormInput" type="submit" value="Submit" /> */}
 						</div>
 					</form>

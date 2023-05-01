@@ -29,7 +29,7 @@ function CompactCard({ param, setExpanded }) {
 
 	if (param.title === 'Users') {
 		//?fetch call to get number of users by finding length of array recieved
-		const uri = `http://localhost:4000/user/allusers`;
+		const uri = `https://poolnride-api.onrender.com/user/allusers`;
 		fetch(uri, {
 			method: 'GET',
 			headers: {
@@ -46,7 +46,7 @@ function CompactCard({ param, setExpanded }) {
 				});
 				setnoOfThings(arr.length);
 			});
-		const uri2 = `http://localhost:4000/user/admin/userstats`;
+		const uri2 = `https://poolnride-api.onrender.com/user/admin/userstats`;
 		fetch(uri2, {
 			method: 'GET',
 			headers: {
@@ -59,11 +59,13 @@ function CompactCard({ param, setExpanded }) {
 			.then((data) => {
 				// lastValue = Object.values(data).pop();
 				// console.log(Object.values(data).pop());
-				setbarper(Math.round(((Object.values(data).pop() - 1) / noOfThings) * 100));
+				setbarper(
+					Math.round(((Object.values(data).pop() - 1) / noOfThings) * 100)
+				);
 			});
 		// setbarper((lastValue/noOfThings) * 100)
 	} else if (param.title === 'Active Pools') {
-		const uri3 = `http://localhost:4000/ride/rides`;
+		const uri3 = `https://poolnride-api.onrender.com/ride/rides`;
 		fetch(uri3, {
 			method: 'GET',
 			headers: {
@@ -94,7 +96,7 @@ function CompactCard({ param, setExpanded }) {
 				}
 			});
 	} else {
-		const uri3 = `http://localhost:4000/ride/rides`;
+		const uri3 = `https://poolnride-api.onrender.com/ride/rides`;
 		fetch(uri3, {
 			method: 'GET',
 			headers: {
@@ -147,121 +149,127 @@ function CompactCard({ param, setExpanded }) {
 }
 
 // Expanded Card
-  function ExpandedCard({ param, setExpanded }) {
-    const [valuesArray, setValuesArray] = useState([]);
+function ExpandedCard({ param, setExpanded }) {
+	const [valuesArray, setValuesArray] = useState([]);
 
-    useEffect(() => {
-      // Fetch data when the component mounts
-      fetchData();
-    }, []);
+	useEffect(() => {
+		// Fetch data when the component mounts
+		fetchData();
+	}, []);
 
-    function fetchData() {
-      let uri;
-      if (param.title === 'Users') {
-        uri = `http://localhost:4000/user/admin/userstats`;
-      } else if (param.title === 'Active Pools') {
-        uri = `http://localhost:4000/ride/admin/apoolstats`;
-      } else {
-        uri = `http://localhost:4000/ride/admin/cpoolstats`;
-      }
+	function fetchData() {
+		let uri;
+		if (param.title === 'Users') {
+			uri = `https://poolnride-api.onrender.com/user/admin/userstats`;
+		} else if (param.title === 'Active Pools') {
+			uri = `https://poolnride-api.onrender.com/ride/admin/apoolstats`;
+		} else {
+			uri = `https://poolnride-api.onrender.com/ride/admin/cpoolstats`;
+		}
 
-      fetch(uri, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          console.log('data: ', data);
-          const valuesArray = Object.values(data);
-          console.log('values array:', valuesArray);
-          setValuesArray(valuesArray);
-        });
-    }
+		fetch(uri, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				console.log('data: ', data);
+				const valuesArray = Object.values(data);
+				console.log('values array:', valuesArray);
+				setValuesArray(valuesArray);
+			});
+	}
 
-    function getCategories() {
-      const today = new Date();
-      const categories = [];
+	function getCategories() {
+		const today = new Date();
+		const categories = [];
 
-      for (let i = 6; i >= 0; i--) {
-        const date = new Date(today.getFullYear(), today.getMonth() - i, 1);
-        const monthName = date.toLocaleString('default', { month: 'short' });
-        const categoryName = `${monthName} ${date.getFullYear()}`;
-        categories.push(categoryName);
-      }
+		for (let i = 6; i >= 0; i--) {
+			const date = new Date(today.getFullYear(), today.getMonth() - i, 1);
+			const monthName = date.toLocaleString('default', { month: 'short' });
+			const categoryName = `${monthName} ${date.getFullYear()}`;
+			categories.push(categoryName);
+		}
 
-      return categories;
-    }
+		return categories;
+	}
 
-    var ChartData = {
-      options: {
-        chart: {
-          type: 'area',
-          height: 'auto',
-        },
+	var ChartData = {
+		options: {
+			chart: {
+				type: 'area',
+				height: 'auto',
+			},
 
-        dropShadow: {
-          enabled: false,
-          enabledOnSeries: undefined,
-          top: 0,
-          left: 0,
-          blur: 3,
-          color: '#000',
-          opacity: 0.35,
-        },
+			dropShadow: {
+				enabled: false,
+				enabledOnSeries: undefined,
+				top: 0,
+				left: 0,
+				blur: 3,
+				color: '#000',
+				opacity: 0.35,
+			},
 
-        fill: {
-          colors: ['#fff'],
-          type: 'gradient',
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        stroke: {
-          curve: 'smooth',
-          colors: ['white'],
-        },
-        tooltip: {
-          x: {
-            format: 'MMM yyyy',
-          },
-        },
-        grid: {
-          show: true,
-        },
-        xaxis: {
-          type: 'datetime',
-          categories: getCategories(),
-        },
-      },
-      series: [{
-        name: param.title,
-        data: valuesArray,
-      }],
-    };
+			fill: {
+				colors: ['#fff'],
+				type: 'gradient',
+			},
+			dataLabels: {
+				enabled: false,
+			},
+			stroke: {
+				curve: 'smooth',
+				colors: ['white'],
+			},
+			tooltip: {
+				x: {
+					format: 'MMM yyyy',
+				},
+			},
+			grid: {
+				show: true,
+			},
+			xaxis: {
+				type: 'datetime',
+				categories: getCategories(),
+			},
+		},
+		series: [
+			{
+				name: param.title,
+				data: valuesArray,
+			},
+		],
+	};
 
-    return (
-      <motion.div
-        className="ExpandedCard"
-        style={{
-          background: param.color.backGround,
-          boxShadow: param.color.boxShadow,
-        }}
-        layoutId="expandableCard"
-      >
-        <div style={{ alignSelf: 'flex-end', cursor: 'pointer', color: 'white' }}>
-          <UilTimes onClick={setExpanded} />
-        </div>
-        <span>{param.title}</span>
-        <div className="chartContainer">
-          <Chart options={ChartData.options} series={ChartData.series} type="area" />
-        </div>
-        <span>Last 7 months</span>
-      </motion.div>
-    );
-  }
+	return (
+		<motion.div
+			className="ExpandedCard"
+			style={{
+				background: param.color.backGround,
+				boxShadow: param.color.boxShadow,
+			}}
+			layoutId="expandableCard"
+		>
+			<div style={{ alignSelf: 'flex-end', cursor: 'pointer', color: 'white' }}>
+				<UilTimes onClick={setExpanded} />
+			</div>
+			<span>{param.title}</span>
+			<div className="chartContainer">
+				<Chart
+					options={ChartData.options}
+					series={ChartData.series}
+					type="area"
+				/>
+			</div>
+			<span>Last 7 months</span>
+		</motion.div>
+	);
+}
 
 export default Card;

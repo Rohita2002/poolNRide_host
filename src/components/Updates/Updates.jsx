@@ -23,7 +23,7 @@ class Updates extends React.Component {
 
 	getPoolStats() {
 		console.log('hi from update.jsx');
-		fetch('http://localhost:4000/ride/admin/cpoolstatsSev')
+		fetch('https://poolnride-api.onrender.com/ride/admin/cpoolstatsSev')
 			.then((response) => response.json())
 			.then((data) => {
 				console.log('hehe', data.completedRidesCount);
@@ -38,7 +38,7 @@ class Updates extends React.Component {
 
 	getUpdateUsers() {
 		console.log('hi from update.jsx');
-		fetch('http://localhost:4000/user/admin/userstats7days')
+		fetch('https://poolnride-api.onrender.com/user/admin/userstats7days')
 			.then((response) => response.json())
 			.then((data) => {
 				// const usersInLast7Days = stats['usersInLast7Days'];

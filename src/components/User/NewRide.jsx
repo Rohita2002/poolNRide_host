@@ -66,7 +66,7 @@ class NewRide extends Component {
 	 */
 
 	getAllRides() {
-		const uri = `http://localhost:4000/ride/rides`;
+		const uri = `https://poolnride-api.onrender.com/ride/rides`;
 
 		// Get user id and send it in with the post request.
 
@@ -102,7 +102,7 @@ class NewRide extends Component {
 
 	haveVehicleDetails() {
 		console.log('hav veh det fun called');
-		const uri = `http://localhost:4000/ride/getVehicleDetails`;
+		const uri = `https://poolnride-api.onrender.com/ride/getVehicleDetails`;
 
 		// Get user id and send it in with the post request.
 		if (!this.state.driverID) return;
@@ -135,7 +135,7 @@ class NewRide extends Component {
 
 		if (userID) {
 			console.log('inside if');
-			const uri = `http://localhost:4000/user/${userID}`;
+			const uri = `https://poolnride-api.onrender.com/user/${userID}`;
 			const self = this;
 
 			fetch(uri, {
@@ -267,7 +267,7 @@ class NewRide extends Component {
 			});
 		} else {
 			// Make the post request
-			const uri = `http://localhost:4000/ride`;
+			const uri = `https://poolnride-api.onrender.com/ride`;
 
 			// Get user id and send it in with the post request.
 
@@ -305,7 +305,7 @@ class NewRide extends Component {
 
 	handleVehicleSubmit(event) {
 		event.preventDefault();
-		const uri = `http://localhost:4000/ride/vehicleSubmit`;
+		const uri = `https://poolnride-api.onrender.com/ride/vehicleSubmit`;
 		const formData = new FormData();
 		formData.append('vehicleType', this.state.vehicleType);
 		formData.append('vehicleRegNo', this.state.vehicleRegNo);

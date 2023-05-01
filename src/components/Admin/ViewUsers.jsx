@@ -34,7 +34,7 @@ export default class ViewUsers extends Component {
 		if (!showvb) {
 			Swal.fire('User is already verified');
 		} else {
-			const uri = `http://localhost:4000/user/${id}`;
+			const uri = `https://poolnride-api.onrender.com/user/${id}`;
 
 			// Get user id and send it in with the post request.
 
@@ -69,7 +69,7 @@ export default class ViewUsers extends Component {
 	}
 
 	showImage(id, showverbut) {
-		fetch(`http://localhost:4000/user/image/${id}.png`)
+		fetch(`https://poolnride-api.onrender.com/user/image/${id}.png`)
 			.then((response) => {
 				if (response.status === 200) {
 					return response.blob();
@@ -109,7 +109,7 @@ export default class ViewUsers extends Component {
 	}
 
 	getAllUsers() {
-		const uri = `http://localhost:4000/user/allusers`;
+		const uri = `https://poolnride-api.onrender.com/user/allusers`;
 
 		// Get user id and send it in with the post request.
 
@@ -137,7 +137,7 @@ export default class ViewUsers extends Component {
 	}
 
 	getAllVehicles() {
-		const uri = `http://localhost:4000/vehicle/allvehicles`;
+		const uri = `https://poolnride-api.onrender.com/vehicle/allvehicles`;
 
 		// Get user id and send it in with the post request.
 
@@ -166,7 +166,7 @@ export default class ViewUsers extends Component {
 
 	deleteUserAndVehicleAndPools(userId) {
 		// Delete the user
-		fetch(`http://localhost:4000/user/${userId}`, {
+		fetch(`https://poolnride-api.onrender.com/user/${userId}`, {
 			method: 'DELETE',
 		})
 			.then((response) => {
@@ -176,7 +176,7 @@ export default class ViewUsers extends Component {
 				console.log('User deleted successfully');
 
 				// Delete the vehicle belonging to the user
-				return fetch(`http://localhost:4000/vehicle/${userId}`, {
+				return fetch(`https://poolnride-api.onrender.com/vehicle/${userId}`, {
 					method: 'DELETE',
 				});
 			})
@@ -187,9 +187,12 @@ export default class ViewUsers extends Component {
 				console.log('Vehicle deleted successfully');
 
 				// Delete any pools associated with the user
-				return fetch(`http://localhost:4000/ride/deletePool/${userId}`, {
-					method: 'DELETE',
-				});
+				return fetch(
+					`https://poolnride-api.onrender.com/ride/deletePool/${userId}`,
+					{
+						method: 'DELETE',
+					}
+				);
 			})
 			.then((response) => {
 				if (response.status !== 200) {
@@ -242,20 +245,20 @@ export default class ViewUsers extends Component {
 			<div className="App">
 				<div className="AppGlassNoDiv">
 					<Sidebar />
-					<div className='viewusers'>
-					<h1>Users</h1>
-						<table className='table'>
-							<thead className='thead-light'>
+					<div className="viewusers">
+						<h1>Users</h1>
+						<table className="table">
+							<thead className="thead-light">
 								<tr>
-									<th scope='col'>#</th>
-									<th scope='col'>First Name</th>
-									<th scope='col'>Username</th>
-									<th scope='col'>Email ID</th>
-									<th scope='col'>Mobile Number</th>
-									<th scope='col'>Feedback</th>
-									<th scope='col'>Average Rating</th>
-									<th scope='col'>Driver License</th>
-									<th scope='col'>Delete</th>
+									<th scope="col">#</th>
+									<th scope="col">First Name</th>
+									<th scope="col">Username</th>
+									<th scope="col">Email ID</th>
+									<th scope="col">Mobile Number</th>
+									<th scope="col">Feedback</th>
+									<th scope="col">Average Rating</th>
+									<th scope="col">Driver License</th>
+									<th scope="col">Delete</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -311,24 +314,24 @@ export default class ViewUsers extends Component {
 											<td>
 												{this.state.vehicles.some(
 													(vehicle) => vehicle.driverID === user._id
-													) ? (
-														<a
-														type='button'
-														className='hasVehicle'
+												) ? (
+													<a
+														type="button"
+														className="hasVehicle"
 														// className='btn btn-primary rounded-pill'
 														onClick={() =>
 															this.showImage(user._id, !showVerifyButton)
 														}
-														>
+													>
 														Has vehicle
 													</a>
 												) : (
 													<a>No Vehicle</a>
-													)}
+												)}
 											</td>
 											<td>
 												<button
-													className='btn btn-outline-danger rounded-pill'
+													className="btn btn-outline-danger rounded-pill"
 													onClick={() =>
 														this.deleteUserAndVehicleAndPools(user._id)
 													}
